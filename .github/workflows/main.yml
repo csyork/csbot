@@ -1,14 +1,14 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - master
+#  push:
+#    branches:
+#      - master
   pull_request:
+    types: [opened, synchronize]
 
 jobs:
   build:
-
     runs-on: ubuntu-18.04
     strategy:
       matrix:
@@ -20,6 +20,8 @@ jobs:
             toxenv: py37-coveralls-flake8
 
     steps:
+    - name: examine environment
+      run: echo "$GITHUB_ACTION"
     - uses: actions/checkout@v1
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v1
@@ -34,3 +36,7 @@ jobs:
       env:
         TOXENV: ${{ matrix.toxenv }}
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        COVERALLS_SERVICE_NAME: github-actions
+        # Pretend to be a different CI service so Coveralls can comment on PRs
+        JENKINS_HOME: /dev/null
+        CI_PULL_REQUEST: ${{ github.event.pull_request.number }}
