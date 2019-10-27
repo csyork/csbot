@@ -26,6 +26,7 @@ jobs:
           echo "::set-env name=JENKINS_HOME::/dev/null"
           echo "::set-env name=BUILD_NUMBER::$RUNNER_TRACKING_ID"
           echo "::set-env name=CI_PULL_REQUEST::${{ github.event.pull_request.number }}"
+          echo "::set-env name=BRANCH_NAME::$GITHUB_REF"
       - name: examine environment
         run: env
       - uses: actions/checkout@v1
