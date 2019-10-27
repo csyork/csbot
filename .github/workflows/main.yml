@@ -17,7 +17,7 @@ jobs:
           - python-version: 3.6
             toxenv: py36
           - python-version: 3.7
-            toxenv: py37-flake8
+            toxenv: py37-coveralls-flake8
 
     steps:
     - uses: actions/checkout@v1
@@ -33,7 +33,4 @@ jobs:
       run: python -m tox
       env:
         TOXENV: ${{ matrix.toxenv }}
-    - name: Upload coverage to Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
