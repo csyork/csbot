@@ -17,7 +17,7 @@ jobs:
           - python-version: 3.6
             toxenv: py36
           - python-version: 3.7
-            toxenv: py37-flake8
+            toxenv: py37-coveralls-flake8
 
     steps:
     - uses: actions/checkout@v1
